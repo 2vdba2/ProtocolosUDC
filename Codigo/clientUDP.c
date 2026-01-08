@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 
+
 #define BUFFSIZE 255
 void Die(char *mess) { perror(mess); exit(1); }
 
@@ -23,7 +24,17 @@ int main(int argc, char *argv[]) {
 	unsigned int echolen, clientlen;
 	int received = 0;
 	
+
+	
 	if (argc != 4) {
+	/*
+	Verifica se mensagem tem todos os 4 argumentos
+	
+	argv[0] ./clientUDP (Nome do executável) 
+	argv[1] <server_ip> (Endereço IP)
+	argv[2] <word> (Comando ou mensagem)
+	argv[3] <port> (Porta do servidor)
+	*/
 		fprintf(stderr, "USAGE: %s <server_ip> <word> <port>\n", argv[0]);
 		exit(1);
 	}
@@ -31,6 +42,12 @@ int main(int argc, char *argv[]) {
 	
 	/* Create the UDP socket */
 	if ((sock = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0) {
+		/*
+		Ela solicita a criação de um ponto de extremidade para comunicação. Ela recebe três parâmetros que definem "como" essa comunicação vai funcionar:
+		PF_INET (Protocol Family Internet): Informa que você quer usar a família de protocolos da Internet IPv4 (endereços como 127.0.0.1).
+		SOCK_DGRAM (Datagram Socket): Define o tipo de transporte. Como o trabalho pede UDP, usamos DGRAM (datagrama). Se fosse TCP, usaríamos SOCK_STREAM.
+		IPPROTO_UDP: Especifica explicitamente que o protocolo de transporte é o UDP.
+    * */
 		Die("Failed to create socket");
 	}
 	/* Construct the server sockaddr_in structure */
@@ -43,8 +60,9 @@ int main(int argc, char *argv[]) {
 	/* Send the word to the server */
 	echolen = strlen(argv[2]);
 	if (sendto(sock, argv[2], echolen, 0,
-			 (struct sockaddr *) &echoserver,
-			 sizeof(echoserver)) != echolen) {
+		//sendto retorna o número de bytes que foram enviados com sucesso
+		(struct sockaddr *) &echoserver,
+		sizeof(echoserver)) != echolen) {
 		Die("Mismatch in number of sent bytes");
 	}
 	

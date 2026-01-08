@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
   echoserver.sin_port = htons(atoi(argv[1]));       /* server port */
   
   /* Bind the socket */
+  //bind diz ao Ubuntu: "A partir de agora, qualquer dado que chegar nesta máquina na porta X deve ser entregue exclusivamente para este programa".
   serverlen = sizeof(echoserver);
   if (bind(sock, (struct sockaddr *) &echoserver, serverlen) < 0) {
     Die("Failed to bind server socket");
@@ -47,6 +48,11 @@ int main(int argc, char *argv[]) {
     if ((received = recvfrom(sock, buffer, BUFFSIZE, 0,
 			     (struct sockaddr *) &echoclient,
 			     &clientlen)) < 0) {
+					 
+	//recvfrom é funcao bloqueante, trava o programa até que pacote chegue
+	//recvfrom retorna numero de bytes recebidos
+	//se recvfrom < 0, erro aconteceu.
+	
       Die("Failed to receive message");
     }
     fprintf(stderr,
