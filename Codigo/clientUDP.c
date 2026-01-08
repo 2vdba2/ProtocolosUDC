@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <netinet/in.h>
-
+#include "tools/printMessage.h"
 
 #define BUFFSIZE 255
 void Die(char *mess) { perror(mess); exit(1); }
@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
 	
 	
 	/* Receive the word back from the server */
+	printMessage(parse_message(argv[2]));
 	fprintf(stdout, "Received: ");
 	clientlen = sizeof(echoclient);
 	if ((received = recvfrom(sock, buffer, BUFFSIZE, 0,
