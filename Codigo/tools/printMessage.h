@@ -10,7 +10,8 @@ typedef struct {
 } Command;
 
 Command parse_message(char *buffer);
-void printMessage(Command cmd); 
+void printCommand(Command cmd);
+void printMessage(char *message); 
 
 #endif
 

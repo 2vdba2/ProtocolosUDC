@@ -45,7 +45,7 @@ Command parse_message(char *buffer) {
 		return cmd;
 }
 
-void printMessage(Command cmd) {
+void printCommand(Command cmd) {
 	printf("\n--- Comando Recebido ---\n");
 	
 	if (cmd.has_error) {
@@ -70,3 +70,6 @@ void printMessage(Command cmd) {
 	}
 	printf("------------------------\n");
 }
+void printMessage(char *message){
+	printCommand(parse_message(message));
+} 

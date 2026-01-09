@@ -67,8 +67,10 @@ int main(int argc, char *argv[]) {
 	}
 	
 	
+	//DEBUG ADICIONADO!!!!
+	char *message=argv[2];
+	printMessage(message);
 	/* Receive the word back from the server */
-	printMessage(parse_message(argv[2]));
 	fprintf(stdout, "Received: ");
 	clientlen = sizeof(echoclient);
 	if ((received = recvfrom(sock, buffer, BUFFSIZE, 0,

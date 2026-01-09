@@ -5,6 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <netinet/in.h>
+#include "tools/printMessage.h"
 
 #define BUFFSIZE 255
 void Die(char *mess) { perror(mess); exit(1); }
